@@ -1,5 +1,5 @@
 # motionPlanningProj
 
 Rahul deliverables:
-- Obstacle and environment creation 
-- map creation without vehicles and obstacles
+- 3 map configurations with both static and dynamic obstacles
+- Dynamic obstacle model updates
