@@ -17,7 +17,7 @@ Obstacle_"Name" = Obstacle  (id,
 '''
 
 Obstacle_1 = Obstacle(1, "Static", [130, 70, 5.5, 0.0, 0.0, 0.0], sampling_time)
-Obstacle_2 = Obstacle(1, "Static", [160, 80, 7.5, 0.0, 0.0, 0.0], sampling_time)
+Obstacle_2 = Obstacle(2, "Static", [160, 80, 7.5, 0.0, 0.0, 0.0], sampling_time)
 Obstacle_3 = Obstacle(3, "Dynamic", [40.0, 50.0, 2.5, 68, 90, 0], sampling_time, "../Object_Photos/police.png")
 
 
