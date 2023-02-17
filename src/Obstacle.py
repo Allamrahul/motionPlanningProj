@@ -6,65 +6,74 @@ from scipy.misc import face
 
 
 class Obstacle:
-    def __init__(self, id, obstacle_type, parameters, sampling_time, path=None, COLOR="#c0392b", ZOOM=0.035,
+    def __init__(self, id, obstacle_type, sampling_time, obs, params=(0.0, 0.0, 0.0), COLOR="#c0392b", ZOOM=0.035,
                  collided=False):
 
         # Obstacle Details
         self.id = id
         self.type = obstacle_type  # Static or Dynamic?
         self.collided = collided
-        # Description of the Obstacle
-        x_pos = parameters[0]
-        y_pos = parameters[1]
-        radius = parameters[2]
-        velocity = parameters[3] * 5 / 18 # m/s conv
-        angle = parameters[4] * np.pi / 180 # radian conv
-        acceleration = parameters[5]
+        self.obs = obs
 
-        self.parameters = [x_pos, y_pos, radius, velocity, angle, acceleration]
+        # Description of the Obstacle
+        velocity, angle, acceleration = self.obs.get_params()
+
+        if self.obs.__class__.__name__ == "Dynamic":
+            velocity = velocity * 5 / 18  # m/s conv
+            angle = angle * np.pi / 180  # radian conv
+
+        self.obs.set_params([velocity, angle, acceleration])
+
+        #self.parameters = [x_pos, y_pos, radius, velocity, angle, acceleration]
+
+        # Store History
+        # self.history = []
+        # self.history.append([x_pos, y_pos, radius, velocity, angle, acceleration])
+
         self.sampling_time = sampling_time
 
         # Load Image from Path
-        if path != None:
-            self.image = Image.open(path)
+        if self.obs.imagePath != None:
+            self.image = Image.open(self.obs.imagePath)
         else:
             self.image = None
+
         if self.type == "Static":
             self.COLOR = COLOR  # Default Color for Static = Red
         else:
             self.COLOR = "#8e44ad"  # Default Color For Dynamic = Purple
         self.ZOOM = ZOOM
 
-        # Store History
-        self.history = []
-        self.history.append([x_pos, y_pos, radius, velocity, angle, acceleration])
 
     def Model(self):
-        self.parameters[3] += self.parameters[5] * self.sampling_time
-        self.parameters[0] += self.parameters[3] * np.cos(self.parameters[4]) * self.sampling_time
-        self.parameters[1] += self.parameters[3] * np.sin(self.parameters[4]) * self.sampling_time
+        velocity, angle, acceleration = self.obs.get_params()
+        velocity += acceleration * self.sampling_time
 
-        x_pos = self.parameters[0]
-        y_pos = self.parameters[1]
-        radius = self.parameters[2]
-        velocity = self.parameters[3]
-        angle = self.parameters[4]
-        acceleration = self.parameters[5]
+        self.obs.pos[0] += velocity * np.cos(angle) * self.sampling_time
+        self.obs.pos[1] += velocity * np.sin(angle) * self.sampling_time
 
-        self.history.append([x_pos, y_pos, radius, velocity, angle, acceleration])
+        self.obs.set_params([velocity, angle, acceleration])
 
     def plot(self, ax):
-        if self.image == None:
-            obstacle = plt.Circle((self.parameters[0], self.parameters[1]), self.parameters[2], facecolor=self.COLOR,
-                                  edgecolor='black')
-            ax.add_artist(obstacle)
-            obstacle_photo = None
+        if self.image is None:
+            if self.obs.__class__.__name__ == "Circle":
+                obstacle = plt.Circle((self.obs.pos[0], self.obs.pos[1]), self.obs.radius, facecolor=self.COLOR,
+                                      edgecolor='black')
+                ax.add_artist(obstacle)
+                obstacle_photo = None
+            elif self.obs.__class__.__name__ == "Rectangle":
+                obstacle = plt.Rectangle((self.obs.pos[0], self.obs.pos[1]), self.obs.dim[0], self.obs.dim[1], facecolor=self.COLOR,
+                                      edgecolor='black')
+                ax.add_artist(obstacle)
+                obstacle_photo = None
+
         else:
-            obstacle = plt.Circle((self.parameters[0], self.parameters[1]), self.parameters[2], facecolor='None',
+            obstacle = plt.Circle((self.obs.pos[0], self.obs.pos[1]), self.obs.radius, facecolor='None',
                                   edgecolor='black')
+            angle = self.obs.get_params()[1]
             ax.add_artist(obstacle)
-            img = self.image.rotate(self.parameters[4] * 180 / np.pi, expand=1)
-            obstacle_photo = AnnotationBbox(OffsetImage(img, zoom=self.ZOOM), (self.parameters[0], self.parameters[1]),
+            img = self.image.rotate(angle * 180 / np.pi, expand=1)
+            obstacle_photo = AnnotationBbox(OffsetImage(img, zoom=self.ZOOM), (self.obs.pos[0], self.obs.pos[1]),
                                             frameon=False)
             ax.add_artist(obstacle_photo)
 

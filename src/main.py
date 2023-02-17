@@ -3,13 +3,17 @@ from Obstacle import *
 from config import *
 import plot
 
+
+
 def obsOob(obstacle):
-    return obstacle.parameters[0] < ws_limits[0][0] or obstacle.parameters[0] > ws_limits[0][1] or \
-                    obstacle.parameters[1] < ws_limits[1][0] or obstacle.parameters[1] > ws_limits[1][1]
+    x, y = obstacle.obs.pos[0], obstacle.obs.pos[1]
+    return x < ws_limits[0][0] or x > ws_limits[0][1] or \
+                    y < ws_limits[1][0] or y > ws_limits[1][1]
 
 def inBoun(obstacle):
-    return obstacle.parameters[0] > ws_limits[0][0] and obstacle.parameters[0] < ws_limits[0][1] and \
-                        obstacle.parameters[1] > ws_limits[1][0] and obstacle.parameters[1] < ws_limits[1][1]
+    x, y = obstacle.obs.pos[0], obstacle.obs.pos[1]
+    return x > ws_limits[0][0] and x < ws_limits[0][1] and \
+                        y > ws_limits[1][0] and y < ws_limits[1][1]
 
 def dynamicObstacleStateChanger(Obstacles):
 
