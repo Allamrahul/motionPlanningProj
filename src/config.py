@@ -7,11 +7,12 @@ sampling_time = 0.2
 
 # Map config 1
 def mapConfigs(map_config: int = 1):
+    obstacles = []
     if map_config == 1:
         d_obs_1 = Dynamic([70.0, 10.0], 2.5, [68, 90, 0], "../Object_Photos/police.png")
         d_obs_2 = Dynamic([200.0, 140.0], 2.5, [50, 270, 0], "../Object_Photos/taxi.png")
 
-        obstacle_1 = Obstacle(1, "Static", sampling_time, Circle([130, 75], 20))
+        obstacle_1 = Obstacle(1, "Static", sampling_time, Circle([130, 75], 20)) # CC
         obstacle_2 = Obstacle(2, "Static", sampling_time, Rectangle([0, 0], [30, 20]))  # LL
         obstacle_3 = Obstacle(3, "Static", sampling_time, Rectangle([0, 55], [30, 40]))  # ML
         obstacle_4 = Obstacle(4, "Static", sampling_time, Rectangle([0, 130], [30, 20]))  # UL
@@ -36,6 +37,8 @@ def mapConfigs(map_config: int = 1):
                      obstacle_9,
                      obstacle_10,
                      obstacle_11]
+
+
     return obstacles
 
 
