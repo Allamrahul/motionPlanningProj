@@ -73,8 +73,8 @@ def mapConfigs(map_config: int = 1):
                      obstacle_10,
                      obstacle_11]
 
-
     return obstacles
 
 
-Obstacles = mapConfigs(2)
+MAP_CONFIG_OPT = 2
+Obstacles = mapConfigs(MAP_CONFIG_OPT)
