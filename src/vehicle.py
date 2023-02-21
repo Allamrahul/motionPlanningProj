@@ -62,7 +62,7 @@ class vehicle:
         self.time += self.sampling_time
         self.time_history.append(self.time)
 
-        # Add pictures and run with sample input and understand how it takes into account time and see what length does
+        
 
 
 
