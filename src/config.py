@@ -76,5 +76,5 @@ def mapConfigs(map_config: int = 1):
     return obstacles
 
 
-MAP_CONFIG_OPT = 2
+MAP_CONFIG_OPT = 1
 Obstacles = mapConfigs(MAP_CONFIG_OPT)
