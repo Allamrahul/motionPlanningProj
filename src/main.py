@@ -76,7 +76,6 @@ if __name__ == '__main__':
     ax.set_xlim(xlim)
     ax.set_ylim(ylim)
     ws_limits = [[0, 260], [0, 140]]
-
     control_inputs = [[10, 10], [10, 10], [10, 10], [10, 10], [10, 10], [10, 10]]
     vehicle1 = vehicle(1, [15, 110, 2, 0], [[250, 110]], 0.1, 0, [2, 0.5], "../Object_Photos/aventador_y.png", ZOOM=0.01)
 
