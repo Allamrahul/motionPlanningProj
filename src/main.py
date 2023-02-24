@@ -76,10 +76,9 @@ if __name__ == '__main__':
     ax.set_xlim(xlim)
     ax.set_ylim(ylim)
     ws_limits = [[0, 260], [0, 140]]
-    control_inputs = [[10, 10], [10, 10], [10, 10], [10, 10], [10, 10], [10, 10]]
-    vehicle1 = vehicle(1, [15, 110, 2, 0], [[250, 110]], 0.1, 0, [2, 0.5], "../Object_Photos/aventador_y.png", ZOOM=0.01)
 
-    Vehicles = [vehicle1]
+    control_input = [100, 0]
+
 
     # Uncomment this for the Example of Big Simulation
     plot.plot_map(ax)
@@ -97,7 +96,7 @@ if __name__ == '__main__':
         for vehicle in Vehicles:
             if not in_bound_region(vehicle):
                 # vehicle.bicycle_model(vehicle.control_input[0], vehicle.control_input[1], True) # ip: vel, steering angle (control inp: ), op: state [x, y, theta, delta]
-                vehicle.vehicle_model(vehicle.control_input[0], vehicle.control_input[1])
+                vehicle.vehicle_model(*control_input)
 
         for obstacle in Obstacles:
             if obstacle.type == 'Dynamic':

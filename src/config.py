@@ -1,14 +1,16 @@
 from Obstacle import *
 from helper import *
+from vehicle import vehicle
+import numpy as np
 Experiment_No = 1
 # Simulation Parameters:
 sampling_time = 0.2
 
 
 # Map config 1
-def mapConfigs(map_config: int = 1):
+def mapConfigs():
     obstacles = []
-    if map_config == 1:
+    if MAP_CONFIG_OPT == 1:
         d_obs_1 = Dynamic([70.0, 10.0], 2.5, [68, 90, 0], "../Object_Photos/police.png")
         d_obs_2 = Dynamic([200.0, 140.0], 2.5, [50, 270, 0], "../Object_Photos/taxi.png")
 
@@ -38,7 +40,7 @@ def mapConfigs(map_config: int = 1):
                      obstacle_10,
                      obstacle_11]
 
-    elif map_config == 2:
+    elif MAP_CONFIG_OPT == 2:
 
 
         # obstacle_1 = Obstacle(1, "Static", sampling_time, Circle([130, 75], 20))  # CC
@@ -76,5 +78,56 @@ def mapConfigs(map_config: int = 1):
     return obstacles
 
 
-MAP_CONFIG_OPT = 1
-Obstacles = mapConfigs(MAP_CONFIG_OPT)
+def get_vehicles():
+    if MAP_CONFIG_OPT == 1:
+        vehicle1 = vehicle(1,
+                           start=[15, 110, 0, 0],
+                           goal=[[250, 110]],
+                           sampling_time=0.1,
+                           begin_time=0,
+                           inital_control_input=[50, 0],
+                           path="../Object_Photos/aventador_y.png",
+                           COLOR="#3498db",
+                           ZOOM=0.01)
+
+        vehicle2 = vehicle(2,
+                           start=[15, 40, 0, 0],
+                           goal=[[250, 40]],
+                           sampling_time=0.1,
+                           begin_time=0,
+                           inital_control_input=[50, 0],
+                           path="../Object_Photos/ferrari_2.png",
+                           ZOOM=0.03)
+
+        Vehicles = [vehicle1,
+                    vehicle2]
+    elif MAP_CONFIG_OPT == 2:
+        vehicle1 = vehicle(1,
+                           start=[90, 140, -np.pi/2, 0],
+                           goal=[[90, 10]],
+                           sampling_time=0.1,
+                           begin_time=0,
+                           inital_control_input=[50, 0],
+                           path="../Object_Photos/aventador_y.png",
+                           COLOR="#3498db",
+                           ZOOM=0.01)
+
+        vehicle2 = vehicle(2,
+                           start=[170, 140, -np.pi/2, 0],
+                           goal=[[170, 10]],
+                           sampling_time=0.1,
+                           begin_time=0,
+                           inital_control_input=[50, 0],
+                           path="../Object_Photos/ferrari_2.png",
+                           ZOOM=0.03)
+
+        Vehicles = [vehicle1,
+                    vehicle2]
+
+    return Vehicles
+
+
+MAP_CONFIG_OPT = 2
+Obstacles = mapConfigs()
+Vehicles = get_vehicles()
+
