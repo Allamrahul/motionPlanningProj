@@ -16,9 +16,10 @@ def plot_simulation_obs(Obstacles, Vehicles, ax, save=False, virtual_state_flag=
         VEHICLE_PLOT.append(vehicle_plot)
         ARROW_PLOT.append(arrow_plot)
         VEHICLE_PHOTO_PLOT.append(vehicle_photo_plot)
-
+    # plt.savefig('MapCfg2.png')
     plt.draw()
     plt.pause(1)
+    # plt.savefig("Final1.png")
 
     for i in range(len(VEHICLE_PLOT)):
         VEHICLE_PLOT[i].remove()

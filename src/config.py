@@ -127,7 +127,7 @@ def get_vehicles():
     return Vehicles
 
 
-MAP_CONFIG_OPT = 2
+MAP_CONFIG_OPT = 1
 Obstacles = mapConfigs()
 Vehicles = get_vehicles()
 

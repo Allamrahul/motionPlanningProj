@@ -91,6 +91,8 @@ if __name__ == '__main__':
         if obstacle.type == 'Static':
             obstacle.plot(ax)
 
+
+
     while not end_loop(Vehicles):  # not end_loop(Vehicles)):
 
         for vehicle in Vehicles:
