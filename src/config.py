@@ -11,7 +11,7 @@ sampling_time = 0.2
 def mapConfigs():
     obstacles = []
     if MAP_CONFIG_OPT == 1:
-        d_obs_1 = Dynamic([70.0, 10.0], 2.5, [68, 90, 0], "../Object_Photos/police.png")
+        d_obs_1 = Dynamic([70.0, 10.0], 2.5, [50, 90, 0], "../Object_Photos/police.png")
         d_obs_2 = Dynamic([200.0, 140.0], 2.5, [50, 270, 0], "../Object_Photos/taxi.png")
 
         obstacle_1 = Obstacle(1, "Static", sampling_time, Circle([130, 75], 20)) # CC
@@ -127,7 +127,7 @@ def get_vehicles():
     return Vehicles
 
 
-MAP_CONFIG_OPT = 1
+MAP_CONFIG_OPT = 2
 Obstacles = mapConfigs()
 Vehicles = get_vehicles()
 
