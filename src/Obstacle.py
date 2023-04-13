@@ -46,6 +46,7 @@ class Obstacle:
 
         x_pos = self.obs.pos[0]
         y_pos = self.obs.pos[1]
+        #if self.obs.__class__.__name__ == "Dynamic" or self.obs.__class__.__name__ == "Circle":
         radius = self.obs.radius
 
         # Store History

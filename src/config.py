@@ -5,7 +5,8 @@ import numpy as np
 Experiment_No = 1
 # Simulation Parameters:
 sampling_time = 0.2
-
+prediction_horizon = 15
+offset = [20, 40]
 
 # Map config 1
 def mapConfigs():
@@ -29,16 +30,17 @@ def mapConfigs():
         # Form a List (Do not forget to add Obstacles in this list and also add them to the Vehicles Parameters
 
         obstacles = [obstacle_1,
-                     obstacle_2,
-                     obstacle_3,
-                     obstacle_4,
-                     obstacle_5,
-                     obstacle_6,
-                     obstacle_7,
-                     obstacle_8,
-                     obstacle_9,
-                     obstacle_10,
-                     obstacle_11]
+                     # obstacle_2,
+                     # obstacle_3,
+                     # obstacle_4,
+                     # obstacle_5,
+                     # obstacle_6,
+                     # obstacle_7,
+                     # obstacle_8,
+                     # obstacle_9,
+                     # obstacle_10,
+                     # obstacle_11
+                     ]
 
     elif MAP_CONFIG_OPT == 2:
 
@@ -80,27 +82,71 @@ def mapConfigs():
 
 def get_vehicles():
     if MAP_CONFIG_OPT == 1:
+        Start_1 = [15, 110, 0, 0]
+        Goal_1 = [
+            [75.0, 110.0, 0.0, 0.0],
+                  [185.0, 110.0, 0.0, 0.0],
+                  # [210.0, 90.0, -90.0, 0.0],
+                  # [210.0, 10.0, -90.0, 0.0]
+                  ]
+        inital_control_input_1 = [30.0, 0.0]
+
+        obs = [Obstacles[0],
+               # Obstacles[1]
+               ]
+
+        start_time_1 = 0
         vehicle1 = vehicle(1,
-                           start=[15, 110, 0, 0],
-                           goal=[[250, 110]],
-                           sampling_time=0.1,
-                           begin_time=0,
-                           inital_control_input=[50, 0], # m/s
-                           path="../Object_Photos/aventador_y.png",
+                           start=Start_1,
+                           goal_list=Goal_1,
+                           inital_control_input=inital_control_input_1,
+                           max_v=120.0,
+                           max_phi=10,
+                           max_delta=30,
+                           start_time=start_time_1,
+                           sampling_time=sampling_time,
+                           prediction_horizon=prediction_horizon,
+                           Obstacles=obs,
+                           offset=offset,
+                           VO_Type="AVO",
                            COLOR="#3498db",
+                           COLOR_NAME="Yellow",
+                           path="../Object_Photos/aventador_y.png",
                            ZOOM=0.01)
 
+        Start_2 = [15, 40, 0, 0]
+        Goal_2 = [[185.0, 30, 180.0, 0.0],
+                  [130.0, 30, 180.0, 0.0],
+                  [100.0, 50, 135.0, 0.0],
+                  [100.0, 90.0, 90.0, 0.0],
+                  [130.0, 110.0, 0.0, 0.0],
+                  [185.0, 110.0, 0.0, 0.0],
+                  [250.0, 110.0, 0.0, 0.0]]
+        inital_control_input_2 = [30.0, 0.0]
+
+        start_time_2 = 0
+
         vehicle2 = vehicle(2,
-                           start=[15, 40, 0, 0],
-                           goal=[[250, 40]],
-                           sampling_time=0.1,
-                           begin_time=0,
-                           inital_control_input=[50, 0],
+                           start=Start_2,
+                           goal_list=Goal_2,
+                           inital_control_input=inital_control_input_2,
+                           max_v=120.0,
+                           max_phi=10,
+                           max_delta=30,
+                           start_time=start_time_2,
+                           sampling_time=sampling_time,
+                           prediction_horizon=prediction_horizon,
+                           Obstacles=obs,
+                           offset=offset,
+                           VO_Type="VO",
+                           COLOR="#f1c40f",
+                           COLOR_NAME="Yellow",
                            path="../Object_Photos/ferrari_2.png",
                            ZOOM=0.03)
 
         Vehicles = [vehicle1,
-                    vehicle2]
+                    # vehicle2
+                    ]
     elif MAP_CONFIG_OPT == 2:
         vehicle1 = vehicle(1,
                            start=[90, 140, -np.pi/2, 0],
@@ -127,7 +173,7 @@ def get_vehicles():
     return Vehicles
 
 
-MAP_CONFIG_OPT = 2
+MAP_CONFIG_OPT = 1
 Obstacles = mapConfigs()
 Vehicles = get_vehicles()
 

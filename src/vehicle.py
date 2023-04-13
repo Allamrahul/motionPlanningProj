@@ -1,4 +1,5 @@
-import numpy as np
+# import numpy as np
+import autograd.numpy as np
 from matplotlib import pyplot as plt
 from autograd import grad
 from PIL import Image
@@ -8,21 +9,22 @@ class vehicle:
     def __init__(self,
                  id,
                  start,
-                 goal,
-                 sampling_time,
-                 start_time,
+                 goal_list,
                  inital_control_input,
                  max_v,
                  max_phi,
                  max_delta,
+                 start_time,
+                 sampling_time,
                  prediction_horizon,
                  Obstacles,
                  offset=[100, 250],
                  VO_Type="VO",
-                 path=None,
                  COLOR="#f1c40f",
-                 ZOOM=0.05,
-                 COLOR_NAME='Yellow'):
+                 COLOR_NAME='Yellow',
+                 path=None,
+                 ZOOM=0.05
+                 ):
         # Vehicle dimensions and parameters
         self.L = 3  # Wheel base
         self.size = 4.78
@@ -42,13 +44,20 @@ class vehicle:
 
         x_start = start[0]
         y_start = start[1]
-        theta_start = start[2]
-        delta_start = start[3]
+        theta_start = start[2] * np.pi / 180
+        delta_start = start[3] * np.pi / 180
 
         self.start = [x_start, y_start, theta_start, delta_start]
 
-        self.goal_list = goal
-        self.goal = self.goal_list.pop(0)
+        self.goal_list = goal_list
+        goal = self.goal_list.pop(0)
+
+        x_goal = goal[0]
+        y_goal = goal[1]
+        theta_goal = goal[2] * np.pi / 180
+        delta_goal = goal[3] * np.pi / 180
+        self.goal = [x_goal, y_goal, theta_goal, delta_goal]
+
 
         if self.goal_list:
             self.goal_bound = self.size * 2
@@ -58,14 +67,14 @@ class vehicle:
         self.state = [x_start, y_start, theta_start, delta_start]
         self.virtual_state = [x_start, y_start, theta_start, delta_start]
 
-        initial_v = inital_control_input[0]
-        initial_phi = inital_control_input[1]
+        initial_v = inital_control_input[0] * 5 / 18
+        initial_phi = inital_control_input[1] * np.pi / 180
         self.control_input = [initial_v, initial_phi]
 
         # Constraints:
-        self.max_v = max_v
-        self.max_phi = max_phi
-        self.max_delta = max_delta
+        self.max_v = max_v * 5 / 18
+        self.max_phi = max_phi * np.pi / 180
+        self.max_delta = max_delta * np.pi / 180
         self.max_acc = 8
         self.max_dacc = 4
 
@@ -85,7 +94,7 @@ class vehicle:
 
 
         # Path Parameters
-        self.global_length = self.distance([x_start, y_start], [self.goal[0], self.goal[1]])
+        self.global_length = self.distance([x_start, y_start], [x_goal, y_goal])
         self.local_length = 0
 
         # History of the Vehicle
@@ -197,9 +206,9 @@ class vehicle:
         lambda_safety = 0
         for obstacle in self.Obstacles:
             if obstacle.type != "Vehicle":
-                obs_x = obstacle.pos[0]
-                obs_y = obstacle.pos[1]
-                radius = obstacle.radius
+                obs_x = obstacle.obs.pos[0]
+                obs_y = obstacle.obs.pos[1]
+                radius = obstacle.obs.radius
             else:
                 if self.id < obstacle.id:  # This condition ensures that the vehicle doesnt know the updated state of other vehicle
                     other_vehicle_state = obstacle.state_history[-1][0:3]
@@ -247,13 +256,13 @@ class vehicle:
         for obstacle in self.Obstacles:
             if obstacle.type != "Static":
                 if obstacle.type == "Dynamic":
-                    obs_x = obstacle.pos[0]
-                    obs_y = obstacle.pos[1]
-                    radius = obstacle.radius
-                    obs_v = obstacle.get_params()[0]
-                    obs_angle = obstacle.get_params()[1]
+                    obs_x = obstacle.obs.pos[0]
+                    obs_y = obstacle.obs.pos[1]
+                    radius = obstacle.obs.radius
+                    obs_v = obstacle.obs.get_params()[0]
+                    obs_angle = obstacle.obs.get_params()[1]
                     if self.VO_Type == "RVO" or self.VO_Type == "RAVO":
-                        obs_acceleration = obstacle.get_params()[2]
+                        obs_acceleration = obstacle.obs.get_params()[2]
                     else:
                         obs_acceleration = 0
                 elif obstacle.type == "Vehicle":

@@ -23,6 +23,7 @@ class Rectangle(Static):
         super(Rectangle, self).__init__()
         self.pos = pos
         self.dim = dim
+        self.radius = 0
 
 
 class Dynamic:
