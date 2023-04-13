@@ -85,7 +85,7 @@ def get_vehicles():
                            goal=[[250, 110]],
                            sampling_time=0.1,
                            begin_time=0,
-                           inital_control_input=[50, 0],
+                           inital_control_input=[50, 0], # m/s
                            path="../Object_Photos/aventador_y.png",
                            COLOR="#3498db",
                            ZOOM=0.01)

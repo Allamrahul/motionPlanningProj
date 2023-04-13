@@ -6,7 +6,7 @@ from scipy.misc import face
 
 
 class Obstacle:
-    def __init__(self, id, obstacle_type, sampling_time, obs, params=(0.0, 0.0, 0.0), COLOR="#c0392b", ZOOM=0.035,
+    def __init__(self, id, obstacle_type, sampling_time, obs, COLOR="#c0392b", ZOOM=0.035,
                  collided=False):
 
         # Obstacle Details
@@ -44,15 +44,29 @@ class Obstacle:
             self.COLOR = "#8e44ad"  # Default Color For Dynamic = Purple
         self.ZOOM = ZOOM
 
+        x_pos = self.obs.pos[0]
+        y_pos = self.obs.pos[1]
+        radius = self.obs.radius
+
+        # Store History
+        self.history = []
+        self.history.append([x_pos, y_pos, radius, velocity, angle, acceleration])
 
     def Model(self):
         velocity, angle, acceleration = self.obs.get_params()
+
         velocity += acceleration * self.sampling_time
 
         self.obs.pos[0] += velocity * np.cos(angle) * self.sampling_time
         self.obs.pos[1] += velocity * np.sin(angle) * self.sampling_time
 
         self.obs.set_params([velocity, angle, acceleration])
+
+        x_pos = self.obs.pos[0]
+        y_pos = self.obs.pos[1]
+        radius = self.obs.radius
+
+        self.history.append([x_pos, y_pos, radius, velocity, angle, acceleration])
 
     def plot(self, ax):
         if self.image is None:

@@ -98,7 +98,7 @@ if __name__ == '__main__':
         for vehicle in Vehicles:
             if not in_bound_region(vehicle):
                 # vehicle.bicycle_model(vehicle.control_input[0], vehicle.control_input[1], True) # ip: vel, steering angle (control inp: ), op: state [x, y, theta, delta]
-                vehicle.vehicle_model(*control_input)
+                vehicle.bicycle_model(*control_input)
 
         for obstacle in Obstacles:
             if obstacle.type == 'Dynamic':
