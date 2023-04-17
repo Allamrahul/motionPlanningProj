@@ -94,8 +94,8 @@ if __name__ == '__main__':
             if obstacle.type == 'Dynamic':
                 if obstacle.obs.pos[0] < ws_limits[0][1] and obstacle.obs.pos[0] > ws_limits[0][0] and \
                         obstacle.obs.pos[1] > ws_limits[1][0] and obstacle.obs.pos[1] < ws_limits[1][1]:
-                    continue
-                obstacle.Model()
+                    obstacle.Model()
+
 
         plot.plot_simulation(Vehicles, Obstacles, ax)
 

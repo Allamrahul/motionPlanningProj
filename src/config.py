@@ -6,15 +6,16 @@ Experiment_No = 1
 # Simulation Parameters:
 sampling_time = 0.2
 prediction_horizon = 15
-offset = [20, 40]
+offset = [40, 80]
 
 # Map config 1
 def mapConfigs():
     obstacles = []
     if MAP_CONFIG_OPT == 1:
         d_obs_1 = Dynamic([70.0, 10.0], 2.5, [50, 90, 0], "../Object_Photos/police.png")
-        d_obs_2 = Dynamic([200.0, 140.0], 2.5, [50, 270, 0], "../Object_Photos/taxi.png")
+        d_obs_2 = Dynamic([200.0, 120.0], 2.5, [50, 270, 0], "../Object_Photos/police.png")
 
+        # obstacle_1 = Obstacle(1, "Static", sampling_time, Circle([130, 105], 20))  # CC
         obstacle_1 = Obstacle(1, "Static", sampling_time, Circle([130, 75], 20)) # CC
         obstacle_2 = Obstacle(2, "Static", sampling_time, Rectangle([0, 0], [30, 20]))  # LL
         obstacle_3 = Obstacle(3, "Static", sampling_time, Rectangle([0, 55], [30, 40]))  # ML
@@ -29,17 +30,18 @@ def mapConfigs():
 
         # Form a List (Do not forget to add Obstacles in this list and also add them to the Vehicles Parameters
 
-        obstacles = [obstacle_1,
-                     # obstacle_2,
-                     # obstacle_3,
-                     # obstacle_4,
-                     # obstacle_5,
-                     # obstacle_6,
-                     # obstacle_7,
-                     # obstacle_8,
-                     # obstacle_9,
-                     # obstacle_10,
-                     # obstacle_11
+        obstacles = [
+                    obstacle_1,
+                     obstacle_2,
+                     obstacle_3,
+                     obstacle_4,
+                     obstacle_5,
+                     obstacle_6,
+                     obstacle_7,
+                     obstacle_8,
+                     obstacle_9,
+                     obstacle_10,
+                     obstacle_11
                      ]
 
     elif MAP_CONFIG_OPT == 2:
@@ -85,15 +87,17 @@ def get_vehicles():
         Start_1 = [15, 110, 0, 0]
         Goal_1 = [
             [75.0, 110.0, 0.0, 0.0],
-                  [185.0, 110.0, 0.0, 0.0],
+                  [125.0, 110.0, 0.0, 0.0],
+            [155.0, 110.0, 0.0, 0.0],
+            [185.0, 90.0, 270.0, 0.0],
+            [185.0, 60.0, 270.0, 0.0],
+            [200.0, 40.0, 0.0, 0.0],
+            [245.0, 40.0, 0.0, 0.0]
                   # [210.0, 90.0, -90.0, 0.0],
                   # [210.0, 10.0, -90.0, 0.0]
                   ]
         inital_control_input_1 = [30.0, 0.0]
 
-        obs = [Obstacles[0],
-               # Obstacles[1]
-               ]
 
         start_time_1 = 0
         vehicle1 = vehicle(1,
@@ -106,17 +110,17 @@ def get_vehicles():
                            start_time=start_time_1,
                            sampling_time=sampling_time,
                            prediction_horizon=prediction_horizon,
-                           Obstacles=obs,
+                           Obstacles=[Obstacles[-1], Obstacles[-2], Obstacles[-3], Obstacles[-4], Obstacles[0]],
                            offset=offset,
-                           VO_Type="AVO",
+                           VO_Type="VO",
                            COLOR="#3498db",
                            COLOR_NAME="Yellow",
                            path="../Object_Photos/aventador_y.png",
                            ZOOM=0.01)
 
         Start_2 = [15, 40, 0, 0]
-        Goal_2 = [[185.0, 30, 180.0, 0.0],
-                  [130.0, 30, 180.0, 0.0],
+        Goal_2 = [
+                  [70.0, 40, 180.0, 0.0],
                   [100.0, 50, 135.0, 0.0],
                   [100.0, 90.0, 90.0, 0.0],
                   [130.0, 110.0, 0.0, 0.0],
@@ -136,7 +140,7 @@ def get_vehicles():
                            start_time=start_time_2,
                            sampling_time=sampling_time,
                            prediction_horizon=prediction_horizon,
-                           Obstacles=obs,
+                           Obstacles=[Obstacles[-1], Obstacles[-2], Obstacles[-3], Obstacles[-4], Obstacles[0]],
                            offset=offset,
                            VO_Type="VO",
                            COLOR="#f1c40f",
@@ -145,7 +149,7 @@ def get_vehicles():
                            ZOOM=0.03)
 
         Vehicles = [vehicle1,
-                    # vehicle2
+                    vehicle2
                     ]
     elif MAP_CONFIG_OPT == 2:
         vehicle1 = vehicle(1,
