@@ -152,22 +152,74 @@ def get_vehicles():
                     vehicle2
                     ]
     elif MAP_CONFIG_OPT == 2:
+        Start_1 = [25, 140, -90, 0]
+        Goal_1 = [
+             [25, 120, 0, 0],
+             [35, 100, 0, 0],
+             [90, 100, 0, 0],
+             [120, 100, 0, 0],
+             [155, 100, 0, 0],
+             [170, 85, 0, 0],
+             [170, 60, 0, 0],
+             [190, 50, 0, 0],
+             [215, 50, 0, 0],
+             [235, 40, 0, 0],
+             [240, 10, 0, 0]
+        ]
+        inital_control_input_1 = [30.0, 0.0]
+
+        start_time_1 = 0
         vehicle1 = vehicle(1,
-                           start=[90, 140, -np.pi/2, 0],
-                           goal=[[90, 10]],
-                           sampling_time=0.1,
-                           begin_time=0,
-                           inital_control_input=[50, 0],
-                           path="../Object_Photos/aventador_y.png",
+                           start=Start_1,
+                           goal_list=Goal_1,
+                           inital_control_input=inital_control_input_1,
+                           max_v=120.0,
+                           max_phi=10,
+                           max_delta=30,
+                           start_time=start_time_1,
+                           sampling_time=sampling_time,
+                           prediction_horizon=prediction_horizon,
+                           Obstacles=[Obstacles[-1], Obstacles[-2], Obstacles[-3], Obstacles[-4], Obstacles[0]],
+                           offset=offset,
+                           VO_Type="VO",
                            COLOR="#3498db",
+                           COLOR_NAME="Yellow",
+                           path="../Object_Photos/aventador_y.png",
                            ZOOM=0.01)
 
+        Start_2 = [240, 130, -90, 0]
+        Goal_2 = [
+            [240, 115, 0, 0],
+            [225, 100, 0, 0],
+            [190, 100, 0, 0],
+            [160, 100, 0, 0],
+            [130, 100, 0, 0],
+            [90, 85, 0, 0],
+            [90, 60, 0, 0],
+            [70, 50, 0, 0],
+            [35, 50, 0, 0],
+            [25, 35, 0, 0],
+            [20, 15, 0, 0]
+            ]
+        inital_control_input_2 = [30.0, 0.0]
+
+        start_time_2 = 0
+
         vehicle2 = vehicle(2,
-                           start=[170, 140, -np.pi/2, 0],
-                           goal=[[170, 10]],
-                           sampling_time=0.1,
-                           begin_time=0,
-                           inital_control_input=[50, 0],
+                           start=Start_2,
+                           goal_list=Goal_2,
+                           inital_control_input=inital_control_input_2,
+                           max_v=120.0,
+                           max_phi=10,
+                           max_delta=30,
+                           start_time=start_time_2,
+                           sampling_time=sampling_time,
+                           prediction_horizon=prediction_horizon,
+                           Obstacles=[Obstacles[-1], Obstacles[-2], Obstacles[-3], Obstacles[-4], Obstacles[0]],
+                           offset=offset,
+                           VO_Type="VO",
+                           COLOR="#f1c40f",
+                           COLOR_NAME="Yellow",
                            path="../Object_Photos/ferrari_2.png",
                            ZOOM=0.03)
 
@@ -177,7 +229,7 @@ def get_vehicles():
     return Vehicles
 
 
-MAP_CONFIG_OPT = 1
+MAP_CONFIG_OPT = 2
 Obstacles = mapConfigs()
 Vehicles = get_vehicles()
 
