@@ -13,16 +13,16 @@ def plot_simulation(Vehicles, Obstacles, ax, save=False, virtual_state_flag=True
             OBSTACLE_PHOTO.append(obstacle_photo)
 
     for vehicle in Vehicles:
-        vehicle_plot, virtual_state_plot, arrow_plot, vehicle_photo_plot, static_region_plot, dynamic_region_plot = vehicle.plot(ax, virtual_state_flag)
+        vehicle_plot, virtual_state_plot, arrow_plot, vehicle_photo_plot, _, _ = vehicle.plot(ax, virtual_state_flag)
         VEHICLE_PLOT.append(vehicle_plot)
         VIRTUAL_STATE_PLOT.append(virtual_state_plot)
         ARROW_PLOT.append(arrow_plot)
         VEHICLE_PHOTO_PLOT.append(vehicle_photo_plot)
-        STATIC_REGION_PLOT.append(static_region_plot)
-        DYNAMIC_REGION_PLOT.append(dynamic_region_plot)
+        # STATIC_REGION_PLOT.append(static_region_plot)
+        # DYNAMIC_REGION_PLOT.append(dynamic_region_plot)
     # plt.savefig('MapCfg2.png')
     plt.draw()
-    # plt.pause(1)
+    # plt.pause(10)
     # plt.savefig("Final1.png")
 
     if save == True:
@@ -35,8 +35,8 @@ def plot_simulation(Vehicles, Obstacles, ax, save=False, virtual_state_flag=True
         VEHICLE_PLOT[i].remove()
         VIRTUAL_STATE_PLOT[i].remove()
         ARROW_PLOT[i].remove()
-        STATIC_REGION_PLOT[i].remove()
-        DYNAMIC_REGION_PLOT[i].remove()
+        # STATIC_REGION_PLOT[i].remove()
+        # DYNAMIC_REGION_PLOT[i].remove()
         if VEHICLE_PHOTO_PLOT[i] != None:
             VEHICLE_PHOTO_PLOT[i].remove()
 

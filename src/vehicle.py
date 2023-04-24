@@ -436,8 +436,8 @@ class vehicle:
             static_region = plt.Circle((self.state[0], self.state[1]), 0, facecolor=self.COLOR, edgecolor='black',
                                        linestyle=':', alpha=0.2)
 
-        ax.add_artist(static_region)
-        ax.add_artist(dynamic_region)
+        # ax.add_artist(static_region)
+        # ax.add_artist(dynamic_region)
 
         arrow = plt.arrow(self.state[0], self.state[1], 4 * np.cos(self.state[2]), 4 * np.sin(self.state[2]), width=0.6,
                           facecolor=self.COLOR, edgecolor='black')
