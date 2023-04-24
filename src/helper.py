@@ -32,6 +32,7 @@ class Dynamic:
         self.radius = r
         self.params = params
         self.imagePath = path
+        self.revSet = False
 
     def set_params(self, params):
         self.params = params

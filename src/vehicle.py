@@ -406,11 +406,7 @@ class vehicle:
 
 
     def plot(self, ax, virtual_state_flag=True):
-        # blue: #003b77
-        # red: #f50116
-        # yellow: #f1c40f
-        # green: #79a824
-        # purple: #8e44ad
+
         if self.image == None:
             vehicle = plt.Circle((self.state[0], self.state[1]), self.size / 2, facecolor=self.COLOR, edgecolor='black')
             ax.add_artist(vehicle)

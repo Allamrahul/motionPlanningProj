@@ -56,7 +56,7 @@ if __name__ == '__main__':
 
     # Define Plot Limits
     fig, ax = plt.subplots()
-    # fig.canvas.manager.full_screen_toggle()
+    fig.canvas.manager.full_screen_toggle()
     xlim = np.array([-18, 278]) # 278
     ylim = np.array([-5, 155]) # 155
     ax.set_xlim(xlim)
@@ -89,12 +89,23 @@ if __name__ == '__main__':
                 vehicle.optimizer()
                 vehicle.bicycle_model(vehicle.control_input[0], vehicle.control_input[1], True) # ip: vel, steering angle (control inp: ), op: state [x, y, theta, delta]
                 # vehicle.bicycle_model(*control_input)
+                # plot.plot_simulation(Vehicles, Obstacles, ax)
 
         for obstacle in Obstacles:
+
             if obstacle.type == 'Dynamic':
+
                 if obstacle.obs.pos[0] < ws_limits[0][1] and obstacle.obs.pos[0] > ws_limits[0][0] and \
                         obstacle.obs.pos[1] > ws_limits[1][0] and obstacle.obs.pos[1] < ws_limits[1][1]:
+                    obstacle.obs.revSet = False
                     obstacle.Model()
+                else:
+                    if not obstacle.obs.revSet:
+                        obstacle.obs.revSet = True
+                        v, th, a = obstacle.obs.get_params()
+                        obstacle.obs.set_params([v, th+np.pi, a])
+                    else:
+                        obstacle.Model()
 
 
         plot.plot_simulation(Vehicles, Obstacles, ax)

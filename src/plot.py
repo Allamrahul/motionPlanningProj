@@ -46,6 +46,10 @@ def plot_simulation(Vehicles, Obstacles, ax, save=False, virtual_state_flag=True
             OBSTACLE_PHOTO[i].remove()
 
 def save_graph(Vehicles, Experiment_No):
+    curr_path = os.getcwd()
+    exp_title = "Experiment_" + str(Experiment_No)
+    exp_dir = os.path.join(os.path.dirname(curr_path), "Graphs", exp_title)
+    os.makedirs(exp_dir)
     for i in range(len(Vehicles)):
         vehicle = Vehicles[i]
         control_input_history = np.array(vehicle.control_input_history)
@@ -62,14 +66,11 @@ def save_graph(Vehicles, Experiment_No):
         plt.axhline(y=vehicle.max_v * 18 / 5, color='r', linestyle='--')
         plt.axhline(y=-vehicle.max_v * 18 / 5, color='r', linestyle='--')
 
-
-        curr_path = os.getcwd()
-        graphs_dir = os.path.join(os.path.dirname(curr_path), "Graphs", "Experiment_1", "Vehicle_"+vehicle.COLOR_NAME)
+        graphs_dir = os.path.join(exp_dir, "Vehicle_"+vehicle.COLOR_NAME)
 
         if not os.path.exists(graphs_dir):
             print("IN")
             os.makedirs(graphs_dir)
-
 
         plt.savefig(
             '../Graphs/Experiment_{}/Vehicle_{}/Vehicle_{}_Velocity.png'.format(Experiment_No, vehicle.COLOR_NAME,
