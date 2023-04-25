@@ -56,7 +56,7 @@ if __name__ == '__main__':
 
     # Define Plot Limits
     fig, ax = plt.subplots()
-    #fig.canvas.manager.full_screen_toggle()
+    fig.canvas.manager.full_screen_toggle()
     xlim = np.array([-18, 278]) # 278
     ylim = np.array([-5, 155]) # 155
     ax.set_xlim(xlim)

@@ -8,7 +8,7 @@ def mapConfigs():
     obstacles = []
     if MAP_CONFIG_OPT == 1:
         d_obs_1 = Dynamic([80.0, 10.0], 2.5, [30, 90, 0], "../Object_Photos/police.png")
-        d_obs_2 = Dynamic([185.0, 140.0], 2.5, [30, 270, 0], "../Object_Photos/taxi.png")
+        d_obs_2 = Dynamic([185.0, 135.0], 2.5, [30, 270, 0], "../Object_Photos/taxi.png")
 
         # obstacle_1 = Obstacle(1, "Static", sampling_time, Circle([130, 105], 20))  # CC
         obstacle_1 = Obstacle(1, "Static", sampling_time, Circle([130, 75], 20)) # CC
@@ -83,9 +83,9 @@ def get_vehicles():
         Goal_1 = [
             [75.0, 110.0, 0.0, 0.0],
             [125.0, 110.0, 0.0, 0.0],
-            [155.0, 110.0, 0.0, 0.0],
-            [185.0, 90.0, 45.0, 0.0],
-            [200.0, 40.0, 45.0, 0.0],
+            [155.0, 110.0, 315.0, 0.0],
+            [185.0, 90.0, 315.0, 0.0],
+            [215.0, 40.0, 0.0, 0.0],
             [245.0, 40.0, 0.0, 0.0]
                   ]
         inital_control_input_1 = [30.0, 0.0]
@@ -112,10 +112,10 @@ def get_vehicles():
 
         Start_2 = [15, 40, 0, 0]
         Goal_2 = [
-                  [70.0, 40, -45.0, 0.0],
-                  [100.0, 50, -45.0, 0.0],
+                  [70.0, 40, 45.0, 0.0],
+                  [100.0, 50, 90.0, 0.0],
                   [100.0, 90.0, 45.0, 0.0],
-                  [130.0, 110.0, 45.0, 0.0],
+                  [130.0, 110.0, 0.0, 0.0],
                   [185.0, 110.0, 0.0, 0.0],
                   [250.0, 110.0, 0.0, 0.0]]
         inital_control_input_2 = [30.0, 0.0]
@@ -214,13 +214,13 @@ def get_vehicles():
 
     return Vehicles
 
-Experiment_No = 7
+Experiment_No = 10
 # Simulation Parameters:
 sampling_time = 0.2
 prediction_horizon = 15
 offset = [40, 80]
 
-MAP_CONFIG_OPT = 1
+MAP_CONFIG_OPT = 2
 Obstacles = mapConfigs()
 Vehicles = get_vehicles()
 

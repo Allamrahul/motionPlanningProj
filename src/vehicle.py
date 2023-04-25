@@ -351,8 +351,8 @@ class vehicle:
             W_constraint = 10000
             W_static = 8000
 
-            W_safety = 0  # 10000
-            W_dynamic = 0  # 25000
+            W_safety = 0#10000
+            W_dynamic = 0#25000
 
             W_safety_VO = 100000
             W_dynamic_VO = 8000
