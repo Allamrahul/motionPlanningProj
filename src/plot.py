@@ -5,7 +5,7 @@ import os
 def plot_simulation(Vehicles, Obstacles, ax, save=False, virtual_state_flag=True, Experiment_No=1):
     VEHICLE_PLOT, VIRTUAL_STATE_PLOT, ARROW_PLOT, VEHICLE_PHOTO_PLOT, STATIC_REGION_PLOT, DYNAMIC_REGION_PLOT = ([] for i in range(6))
     OBSTACLE_FIG, OBSTACLE_PHOTO = ([] for i in range(2))
-
+    ''' Plot the simulation'''
     for obstacle in Obstacles:
         if obstacle.type != 'Static':
             obstacle_fig, obstacle_photo = obstacle.plot(ax)
@@ -46,6 +46,7 @@ def plot_simulation(Vehicles, Obstacles, ax, save=False, virtual_state_flag=True
             OBSTACLE_PHOTO[i].remove()
 
 def save_graph(Vehicles, Experiment_No):
+    ''' Save the plots for the vehicles.'''
     curr_path = os.getcwd()
     exp_title = "Experiment_" + str(Experiment_No)
     exp_dir = os.path.join(os.path.dirname(curr_path), "Graphs", exp_title)
@@ -169,6 +170,7 @@ def save_graph(Vehicles, Experiment_No):
 
 
 def plot_map(ax):
+    ''' Plot the map of the environment'''
     map = plt.Rectangle((0, 0), 260, 150, facecolor="None", edgecolor='black')
     ax.add_artist(map)
 
