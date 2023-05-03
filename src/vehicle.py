@@ -194,6 +194,7 @@ class vehicle:
         return smoothness_cost
 
     def constraint_cost(self, virtual_input, W_v=10, W_phi=1, W_delta=100, W_ws=1, W_safety=10):
+        ''' Returns the constraint cost of the vehicle for a control input.'''
         lamda_v = max(0, virtual_input[0] - self.max_v) + max(0, -virtual_input[0] - self.max_v)
         lamda_phi = max(0, virtual_input[1] - self.max_phi) + max(0, -virtual_input[1] - self.max_phi)
         lamda_delta = max(0, virtual_input[1] - self.max_delta) + max(0, -virtual_input[1] - self.max_delta)
@@ -204,6 +205,7 @@ class vehicle:
         return constraint_cost
 
     def obstacle_cost(self, W_static=10000, W_dynamic=10000, W_safety=100):
+        ''' Returns the static obstacle cost of the vehicle.'''
         # W_dynamic = 0
         obstacle_cost = 0
         lambda_safety = 0
@@ -249,7 +251,7 @@ class vehicle:
         return obstacle_cost
 
     def velocity_obstacle_cost(self, virtual_input, acceleration, W_dynamic_VO, W_safety_VO):
-
+        ''' Returns the velocity obstacle cost of the vehicle for a given input and acceleration.'''
         velocity_obstacle_cost = 0
 
         for i in range(self.tau_vo - self.prediction_horizon):
@@ -323,6 +325,7 @@ class vehicle:
         return velocity_obstacle_cost
 
     def total_cost(self, virtual_input):
+        ''' Returns the weighted sum of all the costs calculated over the entire prediction horizon.'''
         total_cost = 0
         x = self.state[0]
         y = self.state[1]
@@ -390,6 +393,7 @@ class vehicle:
         return total_cost
 
     def optimizer(self, iteration=20, learning_rate=0.005, decay=0.9, eps=1e-8):
+        ''' Returns the optimal control input to the model after minimizing the objective function.'''
         # Using Autograd to find the gradient
         gradient = grad(self.total_cost)
         mean_square_gradient = np.asarray([0.0, 0.0])
@@ -409,7 +413,7 @@ class vehicle:
 
 
     def plot(self, ax, virtual_state_flag=True):
-
+        ''' Returns the vehicle plot.'''
         if self.image == None:
             vehicle = plt.Circle((self.state[0], self.state[1]), self.size / 2, facecolor=self.COLOR, edgecolor='black')
             ax.add_artist(vehicle)
@@ -449,7 +453,7 @@ class vehicle:
         return vehicle, virtual_states, arrow, vehicle_photo, static_region, dynamic_region
 
     def global_plot(self, ax):
-
+        ''' Updates and marks the path of the vehicle during the simulation'''
         plt.plot(self.start[0], self.start[1], marker='*', markersize=15, color=self.COLOR, markeredgecolor='black')
 
         plt.plot([self.start[0], self.goal[0]], [self.start[1], self.goal[1]], '--', color=self.COLOR, alpha=0.5)
