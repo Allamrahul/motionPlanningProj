@@ -6,7 +6,7 @@ Create a virtual environment in the `\src` folder:
 python -m venv /path/to/src/venv
 ```
 Activate the virtual environment by running the activate file.
-Install the required packages for the project.
+Install the required packages for the project in the main project folder.
 ```bash
 pip install -r requirements.txt
 ```
