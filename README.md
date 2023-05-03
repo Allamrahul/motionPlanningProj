@@ -1,10 +1,7 @@
-# motionPlanningProj
+# RBE 550: Real-time collision free navigation for multiple autonomous agents
+## Project Setup
 
-Rahul deliverables:
 
-- 3 map configurations with both static and dynamic obstacles
-- Dynamic obstacle model update
 
-Chaitanya deliverables:
 
 
