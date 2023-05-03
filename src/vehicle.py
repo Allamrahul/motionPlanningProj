@@ -111,10 +111,11 @@ class vehicle:
 
 
     def distance(self, x1, x2):
+        ''' Takes in two position coordinates x1 and x2, returns the Euclidean distance between them.'''
         return np.sqrt((x1[0] - x2[0]) ** 2 + (x1[1] - x2[1]) ** 2)
 
     def bicycle_model(self, v, phi, update=False):
-
+        ''' Takes in the vehicle control inputs v and  phi, updates the state attribute according to the motion model.'''
         if update:
             pos_x = self.state[0]
             pos_y = self.state[1]
@@ -164,6 +165,7 @@ class vehicle:
             self.virtual_state_history.append([x, y, theta, delta])
 
     def goal_reach_cost(self):
+        ''' Returns the Goal reach cost from a given state of the vehicle.'''
         # State cost to Goal
         cost_xy = self.distance(self.virtual_state, self.goal) ** 2
         cost_theta = (self.virtual_state[2] - self.goal[2]) ** 2
@@ -179,6 +181,7 @@ class vehicle:
         return goal_reach_cost
 
     def smoothness_cost(self, virtual_input):
+        ''' Return the Smoothness Cost of the vehicle for the given control inputs.'''
         cost_v = ((self.control_input[0] - virtual_input[0]) ** 2 / self.sampling_time)
         cost_phi = ((self.control_input[1] - virtual_input[1]) ** 2 / self.sampling_time)
 
