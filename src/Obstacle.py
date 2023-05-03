@@ -54,6 +54,7 @@ class Obstacle:
         self.history.append([x_pos, y_pos, radius, velocity, angle, acceleration])
 
     def Model(self):
+        ''' Updates the obstacle state for the dynamic obstacles.'''
         velocity, angle, acceleration = self.obs.get_params()
 
         velocity += acceleration * self.sampling_time
@@ -70,6 +71,7 @@ class Obstacle:
         self.history.append([x_pos, y_pos, radius, velocity, angle, acceleration])
 
     def plot(self, ax):
+        ''' Returns the plot of the obstacles.'''
         if self.image is None:
             if self.obs.__class__.__name__ == "Circle":
                 obstacle = plt.Circle((self.obs.pos[0], self.obs.pos[1]), self.obs.radius, facecolor=self.COLOR,
